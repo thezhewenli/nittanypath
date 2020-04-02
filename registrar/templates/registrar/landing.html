@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}
+
+    <title>Home - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+    <h1>
+    {% if username %}
+        Welcome, {{ username }}!
+    {% else %}
+        Welcome!
+    {% endif %}
+    </h1>
+
+    <h1>Hello, world!</h1>
+
+{% endblock %}

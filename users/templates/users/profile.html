@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block bodycontent %}
+
+  <div class="jumbotron">
+    
+    <div class="container">
+      <h1 class="display">Welcome!</h1>
+      <p>Below shows your profile on file with the university.</p>
+      <hr class="my">
+      <img class="rounded-circle" width="100" height="100" src="{{ user.universitymemberprofile.image.url }}" data-holder-rendered="true">
+      
+      <p class="lead" style="margin-top: 1.5em">Name: {{ user.universitymemberprofile.legal_name }}</p>
+      <p>Login ID: {{ user.username }}</p>
+      <p>University Email: {{ user.username }}@nittany.edu</p>
+      <p>Secondary Email: {{ user.email }}</p>
+      <p>Age: {{ user.universitymemberprofile.age }}</p>
+      <p>Legal Gender: {{ user.universitymemberprofile.legal_gender }}</p>
+      <p>Your Home Address: <br>
+        {{ user.universitymemberprofile.home_street_address }} <br>
+        {{ user.universitymemberprofile.home_zipcode }}, USA</p>
+    </div>
+
+    <div class="container">
+      <!-- Form allowing user to update address and profile pic -->
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom">Need an update?</legend>
+          {{ user_update_form|crispy }}
+          {{ profile_update_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <legend class="border-bottom">Need to change your password?</legend>
+      <a class="button btn btn-outline-info" href="{% url 'password_change' %}">Change Password</a>
+    </div>
+
+  </div>
+
+{% endblock bodycontent %}
