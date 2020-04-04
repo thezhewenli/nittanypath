@@ -102,6 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Change user model to customized 'University Member'
+AUTH_USER_MODEL = 'users.UniversityMember'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

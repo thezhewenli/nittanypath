@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, UniversityMemberProfileUpdateForm
+from .forms import UniversityMemberProfileUpdateForm
 
 # Redirect to home page with message after logged out
 def logout_request(request):
@@ -18,11 +18,9 @@ def profile(request):
 
   # When user clicks update button
   if request.method == 'POST':
-    user_update_form = UserUpdateForm(request.POST, instance=request.user)
-    profile_update_form = UniversityMemberProfileUpdateForm(request.POST, request.FILES, instance=request.user.universitymemberprofile)
+    profile_update_form = UniversityMemberProfileUpdateForm(request.POST, request.FILES, instance=request.user)
     # Only save the change if inputs are valid
-    if user_update_form.is_valid() and profile_update_form.is_valid():
-      user_update_form.save()
+    if profile_update_form.is_valid():
       profile_update_form.save()
       # Show success message
       messages.success(request, "Your profile has been updated!")
@@ -30,11 +28,9 @@ def profile(request):
       return redirect("profile")
   # Show user their current profile info
   else:
-    user_update_form = UserUpdateForm(instance=request.user)
-    profile_update_form = UniversityMemberProfileUpdateForm(instance=request.user.universitymemberprofile)
+    profile_update_form = UniversityMemberProfileUpdateForm(instance=request.user)
 
   context = {
-    'user_update_form': user_update_form,
     'profile_update_form': profile_update_form,
   }
 
