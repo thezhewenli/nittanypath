@@ -1,9 +1,11 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from .managers import CustomUserManager
-from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 from PIL import Image
+
+from .managers import CustomUserManager
+from registrar.models import Department
+
 
 # Custom user model as 'University Member' table
 class UniversityMember(AbstractBaseUser, PermissionsMixin):
@@ -17,13 +19,14 @@ class UniversityMember(AbstractBaseUser, PermissionsMixin):
         ('M', 'Male'),
         ('F', 'Female'),
     )
-    
+
     # Fields needed for Django
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
-    access_id = models.CharField(max_length=6, verbose_name="Access ID", unique=True)
+    access_id = models.CharField(
+        max_length=6, verbose_name="Access ID", unique=True)
     legal_name = models.CharField(max_length=100)
     age = models.PositiveSmallIntegerField()
     legal_gender = models.CharField(max_length=1, choices=LEGAL_GENDERS)
@@ -34,7 +37,7 @@ class UniversityMember(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
-    
+
     def __str__(self):
         return self.access_id
 
@@ -50,41 +53,30 @@ class UniversityMember(AbstractBaseUser, PermissionsMixin):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+# Table storing zipcode information
+class ZipcodeInfo(models.Model):
+    zipcode = models.CharField(max_length=5, primary_key=True)
+    state = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=50)
 
+# Profiles for each role of University Member
+class StudentProfile(models.Model):
+    #user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, null=True, related_name='student_profile')
+    user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, related_name='student_profile')
+    major_id = models.ForeignKey(Department, default='PMAJ', on_delete=models.SET_DEFAULT, verbose_name='Major ID', related_name='stu_major')
+    minor_id = models.ForeignKey(Department, null=True, on_delete=models.SET(''), verbose_name='Minor ID', related_name='optional_minor')
+    phone = models.CharField(max_length=10)
+    home_zipcode = models.ForeignKey(ZipcodeInfo, on_delete=models.DO_NOTHING)
+    home_street_address = models.TextField()
 
-# home_zipcode = models.CharField(max_length=5)
-# home_street_address = models.TextField()
+class FacultyProfile(models.Model):
+    user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, related_name='faculty_profile')
+    department_id = models.ForeignKey(Department, on_delete=models.SET_DEFAULT, default='PMAJ')
+    title = models.CharField(max_length=50)
+    office = models.CharField(max_length=100)
 
-
-# class InternProfile(models.Model):
-#     user = models.OneToOneField(
-#         User, on_delete=models.CASCADE, null=True, related_name='intern_profile')
-#     bio = models.CharField(max_length=30, blank=True)
-#     location = models.CharField(max_length=30, blank=True)
-
-
-# class HRProfile(models.Model):
-#     user = models.OneToOneField(
-#         User, on_delete=models.CASCADE, null=True, related_name='hr_profile')
-#     company_name = models.CharField(max_length=100, blank=True)
-#     website = models.CharField(max_length=100, blank=True)
-
-
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     print('****', created)
-#     if instance.is_intern:
-#         InternProfile.objects.get_or_create(user=instance)
-#     else:
-#         HRProfile.objects.get_or_create(user=instance)
-
-
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     print('_-----')
-#     # print(instance.internprofile.bio, instance.internprofile.location)
-#     if instance.is_intern:
-#         instance.intern_profile.save()
-#     else:
-#         HRProfile.objects.get_or_create(user=instance)
-
+class TAProfile(models.Model):
+    user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, related_name='TA_profile')
+    teaching_team = models.PositiveSmallIntegerField()
+    office_hours = models.TextField(blank=True)
+    office_location = models.CharField(max_length=50, blank=True)

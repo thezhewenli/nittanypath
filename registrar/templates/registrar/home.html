@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Home - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <img src="{% static 'registrar/msc.jpg' %}" class="img-fluid">
+    </div>
+    <div class="container">
+      <h1 class="jumbotron-heading" style="margin-top: 1em">Welcome, {{ user.legal_name }}!</h1>
+      <p class="lead text-muted">This is your new Enrollment and Course Manangement System.</p>
+    </div>
+  </section>
+
+{% endblock %}
+

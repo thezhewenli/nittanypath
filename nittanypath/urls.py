@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from users import views as users_views
+from registrar import views as registrar_views
 # Login Logout Views
 from django.contrib.auth import views as auth_views
 # Debug mode use media folders for profile pics
@@ -25,6 +26,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', registrar_views.landing, name='landing'),
     path('registrar/', include('registrar.urls')),
     path('login/', auth_views.LoginView.as_view(
         template_name='users/login.html'), name='login'),

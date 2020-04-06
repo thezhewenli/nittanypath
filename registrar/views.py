@@ -1,7 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.conf import settings
 
+# Default landing page for anonymous user
 def landing(request):
-  logedinusername = 'User1'
+  if request.user.is_authenticated:
+    return redirect('registrar-home')
+  return render(request, 'registrar/landing.html')
 
-  args = {'username': logedinusername}
-  return render(request, 'registrar/landing.html', args)
+def home(request):
+  # Ask anonymous user to log in to view home page
+  if not request.user.is_authenticated:
+    return redirect('login')
+  return render(request, 'registrar/home.html')

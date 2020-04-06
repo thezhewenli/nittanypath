@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'registrar/basestyle.css' %}">
 
     {% block pagetitle %}
-    <title>NittanyPath System - Landing Page</title>
+    <title>NittanyPath System</title>
     {% endblock %}
     
     <body style="background-color:#f8f9fa">
@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
           <!-- navbar content with logo -->
           <div class="container">
-            <a class="navbar-brand" href="{% url 'registrar-home' %}">
+            <a class="navbar-brand" href="{% url 'landing' %}">
               <img src="{% static 'registrar/logo.png' %}" width="110" height="30" alt="">
             </a>
 
@@ -36,10 +36,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="#">Pricing</a>
-                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-item nav-link active" href="{% url 'landing' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link disabled" href="#">Features</a>
+                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Courses</a>
               </div>
             </div>
             <span class="navbar-nav">

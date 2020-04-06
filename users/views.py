@@ -10,7 +10,7 @@ def logout_request(request):
   # Show success message
   messages.success(request, "You have logged out successfully!")
   # And send user back to home page
-  return redirect("registrar-home")
+  return redirect("landing")
 
 # Login-required to see profile page
 @login_required

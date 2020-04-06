@@ -30,4 +30,9 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('legal_gender', 'M')
         extra_fields.setdefault('primary_affiliation', '1')
 
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
         return self.create_user(access_id, password, **extra_fields)
