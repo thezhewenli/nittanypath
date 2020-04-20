@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Home - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading" style="margin-top: 1em">All Courses Available at NSU:</h1>
+      <p class="lead text-muted">This page shows you all the courses that are currently available.</p>
+      
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Name</th>
+            <th scope="col">Credit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+          <tr>
+            <th scope="row">{{ course.subject }} {{ course.course_number }}</th>
+            <td>{{ course.course_name }}</td>
+            <td>{{ course.credit }}</td>
+          </tr> 
+          {% endfor %}         
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+
+{% endblock %}
+

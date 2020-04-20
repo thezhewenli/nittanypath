@@ -4,6 +4,8 @@ from django.conf import settings
 class Department(models.Model):
   department_id = models.CharField(max_length=5, primary_key=True, default='PMAJ')
   department_name = models.CharField(max_length=50)
+  def __str__(self):
+    return self.department_id
 
 class Course(models.Model):
   course_id = models.SmallIntegerField(primary_key=True, unique=True)
@@ -12,6 +14,8 @@ class Course(models.Model):
   course_name = models.TextField()
   credit = models.PositiveSmallIntegerField()
   drop_ddl = models.CharField(max_length=8)
+  def __str__(self):
+    return self.subject + self.course_number
 
 class Section(models.Model):
   course = models.ForeignKey(Course, on_delete=models.CASCADE)
