@@ -3,7 +3,8 @@
 ###### Author: Eric Zhewen Li <br>Contact: eric@zhewenli.com<br>&copy; 2020. Under MIT License. All Rights Reserved.
 
 - [0. Introduction](#0.-Introduction)
-- [1. Control Flow](#1.-Control Flow)
+- [1. Control Flow](#1.-Control-Flow)
+- [2. Anonymous User](#2.-Anonymous-User)
 
 ## 0. Introduction
 
