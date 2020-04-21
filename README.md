@@ -2,11 +2,13 @@
 
 ###### Author: Eric Zhewen Li <br>Contact: eric@zhewenli.com<br>&copy; 2020. Under MIT License. All Rights Reserved.
 
-- [0. Introduction](#0.%20Introduction)
-- [1. Control Flow](#1.%20Control%20Flow)
-- [2. Anonymous User](#2.%20Anonymous%20User)
-
-<!-- toc -->
+- [0. Introduction](#0-Introduction)
+- [1. Control Flow](#1-Control-Flow)
+- [2. Anonymous User](#2-Anonymous-User)
+- [3. Logged-in User](#3-Logged-in-User)
+- [4. Admin User](#4-Admin-User)
+- [5. Copyright Statement](#5-Copyright-Statement)
+- [6. Citations](#6-Citations)
 
 ## 0. Introduction
 
