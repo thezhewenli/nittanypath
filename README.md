@@ -75,7 +75,7 @@ A data parser is designed and available at `/scripts/data_parse.py`. This progra
 After running the data parser and having new csv files generated, there are 11 scripts under `/commands` directory, and they will automatically populate the database using data from the pre-parsed csv files. There is a preferred order to run these scripts and they are named by numbers. To use the script, simply type the following command to your terminal:
 
 ```bash
-python manage.py shell < <script name>.py
+python manage.py shell < replace_with_script_name.py
 ```
 
 A list of generated csv files and their column descriptions is shown below:
