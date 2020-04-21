@@ -6,6 +6,8 @@
 - [1. Control Flow](#1.%20Control%20Flow)
 - [2. Anonymous User](#2.%20Anonymous%20User)
 
+<!-- toc -->
+
 ## 0. Introduction
 
 NittanyPath is a University and Course Manangement System, created using Django. The system is designed for Nittany State University, as a part of the capstone project for CMPSC 431W course, taught by [Prof. Wang-Chien Lee](https://sites.psu.edu/wlee/) at [Penn State University](https://www.psu.edu/). This report describes the overall control flow and detailed functionalities of the system, categorized by three different types of users - anonymous, logged-in, and admin users.
