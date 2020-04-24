@@ -50,7 +50,7 @@ On the side of each enrollment record, a "Drop" button is provided and students 
 
 ### 3.3. My Teachings
 
-For faculty members and HAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). The teaching team members have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
+For faculty members and TAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). The teaching team members have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
 
 ### 3.4. My Profile
 
@@ -62,7 +62,11 @@ Each course will have its own forum, where all participants can view and comment
 
 Similar to the forum, all course participants can access the Assignment page, where students can see a list of assignments affiliated with the course, and their grades for each assignment if they are graded. And for teaching team members, a grade book will be shown and they can update each student's grade for each assignment at this page.
 
-### 3.6. Log-out
+### 3.6. Gradebook
+
+
+
+### 3.7. Log-out
 
 This is implemented with help from Django's default logout function. When logged-in user clicks on this button (on the top right corner of the system), NittanyPath will logout the current user and redirect to anonymous user's landing page (section 2.1).
 
