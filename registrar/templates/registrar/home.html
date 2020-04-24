@@ -17,6 +17,11 @@
       <h1 class="jumbotron-heading" style="margin-top: 1em">Welcome, {{ user.legal_name }}!</h1>
       <p class="lead text-muted">This is your new Enrollment and Course Manangement System.</p>
     </div>
+    <div class="container">
+      <a class="button btn btn-outline-primary" href="{% url 'my-enrollment' %}">My Enrolled Courses</a> &nbsp;
+      <a class="button btn btn-outline-primary" href="{% url 'my-teachings' %}">My Teachings (Faculty/TA only)</a> &nbsp;
+      <a class="button btn btn-outline-primary" href="{% url 'profile' %}">Update Profile Photo</a>
+    </div>
   </section>
 
 {% endblock %}

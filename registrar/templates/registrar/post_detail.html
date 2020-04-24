@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Post Detail - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+<div class="container">
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="mailto:[{{ object.post_author.access_id }}]@nittany.edu">{{ object.post_author.legal_name }}</a>
+        <small class="text-muted">{{ object.post_time|date:"F d, Y" }}</small>
+        {% if object.post_author == user or role == 'faculty' or role == 'TA' %}
+          <div style="margin-top: 1em">
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update-forum-post' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete-forum-post' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.post_title }}</h2>
+      <p class="article-content">{{ object.post_content }}</p>
+    </div>
+  </article>
+</div>
+
+<div class="container" style="margin-top: 1.5em">
+  <h6>Related Replies:</h6>
+  {% for onereply in reply %}
+    <div class="card" style="margin-top: 1em">
+      <div class="card-header">
+        <a class="mr-2" href="mailto:[{{ onereply.reply_author.access_id }}]@nittany.edu">{{ onereply.reply_author.legal_name }}</a>
+        <small class="text-muted">{{ onereply.reply_time|date:"F d, Y" }}</small>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ onereply.reply_content }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  <a class="btn btn-outline-info" role="button" style="margin-top: 1em" href="{% url 'create-reply' object.id %}">Reply Here</a>
+</div>
+
+{% endblock %}

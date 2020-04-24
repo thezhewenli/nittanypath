@@ -23,11 +23,20 @@
       <p>Age: {{ user.age }}</p>
       <p>Legal Gender: {{ user.get_legal_gender_display }}</p>
       <p>Primary Affiliation: {{ user.get_primary_affiliation_display }}</p>
-      <!--- TODO - show different profile for each role
-      <p>Your Home Address: <br>
-        {{ user.universitymember.home_street_address }} <br>
-        {{ user.universitymember.home_zipcode }}, USA</p>
-      -->
+      
+      <!--- Show different profile for different role -->
+      <p class="lead" style="margin-top: 1.5em">Additional Info for {{ user.get_primary_affiliation_display }}:</p>
+      {% if user.primary_affiliation == '1' %}
+        <p>Department: {{ additional_info.department_id }}</p>
+        <p>Title: {{ additional_info.title }}</p>
+        <p>Office: {{ additional_info.office }}</p>
+      {% else %}
+        <p>Major: {{ additional_info.major_id }}</p>
+        <p>Phone Number: {{ additional_info.phone }}</p>
+        <p>Home Address:<br>
+          {{ additional_info.home_street_address }}<br>
+          {{ additional_info.home_zipcode.city }}, {{ additional_info.home_zipcode.state }} {{ additional_info.home_zipcode }}</p>
+      {% endif %}
     </div>
 
     <div class="container">

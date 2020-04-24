@@ -58,10 +58,11 @@ class ZipcodeInfo(models.Model):
     zipcode = models.CharField(max_length=5, primary_key=True)
     state = models.CharField(max_length=20, blank=True)
     city = models.CharField(max_length=50)
+    def __str__(self):
+        return self.zipcode
 
 # Profiles for each role of University Member
 class StudentProfile(models.Model):
-    #user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, null=True, related_name='student_profile')
     user = models.OneToOneField(UniversityMember, on_delete=models.CASCADE, related_name='student_profile')
     major_id = models.ForeignKey(Department, default='PMAJ', on_delete=models.SET_DEFAULT, verbose_name='Major ID', related_name='stu_major')
     minor_id = models.ForeignKey(Department, null=True, on_delete=models.SET(''), verbose_name='Minor ID', related_name='optional_minor')

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Delete a Post - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+  <div class="col-6">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Delete a Post</legend>
+        <h2>Please confirm that you're deleting this post <i>{{ object.title }}</i>.</h2>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-danger" type="submit">Confirm to DELETE</button>
+        <a class="btn btn-outline-secondary" href="{% url 'view-forum-post' object.id %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}

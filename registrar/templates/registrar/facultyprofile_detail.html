@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Faculty Profile - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+<section class="jumbotron text-center">
+  <div class="container-12">
+    <h1 class="jumbotron-heading" style="margin-top: 1em">Faculty Detail for <i>{{ faculty.legal_name}}</i>:</h1>
+    <p class="lead text-muted">This page shows detailed information about your instructor.</p>
+    <p class="text-left"><b>Email: </b><a href="mailto:[{{ faculty.access_id }}]@nittany.edu">{{ faculty.access_id }}@nittany.edu</a></p>
+    <p class="text-left"><b>Affiliation: </b>{{ object.department_id }}</p>
+    <p class="text-left"><b>Title: </b>{{ object.title }}</p>
+    <p class="text-left"><b>Office Location: </b>{{ object.office }}</p>
+  </div>
+</section>
+
+{% endblock %}

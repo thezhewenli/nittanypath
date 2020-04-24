@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Course Forum - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+  <div class="container">
+    <h1 class="heading" style="margin-top: 1em">Course Forum for <i>{{ course.subject }} {{ course.course_number }}</i>:</h1>
+    <p class="text-muted">This page shows the course's all post entries.</p>
+    <a class="btn btn-outline-info" role="button" href="{% url 'create-post' course.course_id %}">Create a Post</a>
+  </div>
+  <div class="container" style="margin-top: 1em">
+  {% for post in posts %}
+    <div class="card">
+      <div class="card-header">
+        <a class="mr-2" href="mailto:[{{ post.post_author.access_id }}]@nittany.edu">{{ post.post_author.legal_name }}</a>
+        <small class="text-muted">{{ post.post_time|date:"F d, Y" }}</small>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title"><a class="article-title" href="{% url 'view-forum-post' post.id %}">{{ post.post_title }}</a></h2>
+        <p class="card-text">{{ post.post_content }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+
+{% endblock %}

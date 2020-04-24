@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>My Courses - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+<section class="jumbotron text-center">
+  <div class="container-12">
+    <h1 class="jumbotron-heading" style="margin-top: 1em">Enrollment Records for <i>{{ user.legal_name }}</i>:</h1>
+    <p class="lead text-muted">This page shows all the courses/sections you are currently enrolled in.</p>
+    {% if enrollments|length == 0 %}
+      <p class="lead">You have no enrollment record.</p>
+    {% else %}
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Course</th>
+          <th scope="col">Section</th>
+          <th scope="col">Instructor</th>
+          <th scope="col">Grade</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for enrollment in enrollments %}
+        <tr>
+          <td><a href="{% url 'view-course-detail' enrollment.course_section.course.course_id %}">{{ enrollment.course_section.course }}</a></td>
+          <td>{{ enrollment.course_section.section_num }}</td>
+          <td><a href="{% url 'view-faculty-detail' enrollment.course_section.teaching_team_id.faculty %}">{{ enrollment.course_section.teaching_team_id.faculty.legal_name }}</a></td>
+          <td>{{ enrollment.get_grade_display }}</td>
+          <td>
+            <a class="button btn btn-info" href="{% url 'view-course-forum' enrollment.course_section.course.course_id %}">Forum</a>
+            <a class="button btn btn-secondary" href="{% url 'view-course-assignment' enrollment.course_section.course.course_id %}">Assignment</a> 
+            <a class="button btn btn-danger" href="#">Drop</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

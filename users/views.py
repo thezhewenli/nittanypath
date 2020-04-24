@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UniversityMemberProfileUpdateForm
+from .models import FacultyProfile, StudentProfile
 
 # Redirect to home page with message after logged out
 def logout_request(request):
@@ -28,10 +29,15 @@ def profile(request):
       return redirect("profile")
   # Show user their current profile info
   else:
+    if request.user.primary_affiliation == '1':
+      additional_info = FacultyProfile.objects.get(user=request.user)
+    elif request.user.primary_affiliation == '2':
+      additional_info = StudentProfile.objects.get(user=request.user)
     profile_update_form = UniversityMemberProfileUpdateForm(instance=request.user)
 
   context = {
     'profile_update_form': profile_update_form,
+    'additional_info': additional_info,
   }
 
   return render(request, 'users/profile.html', context)

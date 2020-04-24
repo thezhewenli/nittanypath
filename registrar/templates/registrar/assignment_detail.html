@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Assignment Detail - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+{% if role == 'student' %}
+  <div class="container">
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <small class="text-muted">Assignment #{{ assignment.assignment }}</small>
+        </div>
+        <h2 class="card-title">{{ assignment.desc }}</h2>
+        <p class="card-text">{{ assignment.detail }}</p>
+        <p class="card-text">Your Score: {{ grade.grade }}</p>
+      </div>
+    </article>
+  </div>
+{% else %}
+  <div class="container">
+    <h1>Teaching team members please use <a>gradebook</a>...</h1>
+  </div>
+{% endif %}
+
+{% endblock %}
