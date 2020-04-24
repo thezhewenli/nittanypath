@@ -20,7 +20,7 @@ NittanyPath is a University and Course Manangement System, created using Django.
 
 ### How to Start the System?
 
-NittanyPath is created and powered by Django. Make sure you have Python 3 and Django package installed. Then go to the directory at terminal and run `python manage.py runserver`. The web app will start at the default location. You can then access the system using your browser.
+NittanyPath is created and powered by Django. Make sure you have Python 3, Django, Django-crisp-form and pillow packages installed. Then go to the directory at terminal and run `python manage.py runserver`. The web app will start at the default location. You can then access the system using your browser.
 
 ## 2. Anonymous User
 
@@ -30,37 +30,39 @@ If a user is logged-in (anonymous) and opens NittanyPath home page, the system w
 
 ### 2.2. Log-in
 
-If the user inputs a correct combination of Access ID (in the form of `ab1234`) and password (hashed), NittanyPath will redirect user to home page (section 3.1).
+If an anonymous user inputs a correct combination of Access ID (in the form of `ab1234`) and password (hashed), NittanyPath will redirect user to home page (section 3.1).
 
 ### 2.2. Course Directory
 
-A list of all the courses offered at Nittany State University is shown on this page, including its abbreviation (subject + course number), course name, and credit number. No log-in is required to access this page. A filter function is also available - when user puts in their desired filter criteria(s) and hit search button, a refined list will be shown on this page.
+A list of all the courses offered at Nittany State University is shown on this page, including its abbreviation (subject + course number), course name, and credit number. Log-in is not required to access this page. A filter function is also available - when user puts in their desired filter criteria(s) and hit search button, a refined list will be shown on this page.
 
 ## 3. Logged-in User
 
 ### 3.1. Home Page
 
-Signed-in users will be automatically redirect to the registrar app homepage, showing a picture of the Millennium Science Complex, and a welcome message. The login and logout features are inherited from Django's default functions and views, with some alterations.
+Signed-in users will be automatically redirect to the registrar app homepage, showing a picture of the Millennium Science Complex, and a welcome message. The login and logout features are inherited from Django's default functions and views, with some alterations. Three buttons are available on this page - My Enrollments (section 3.2), My Teachings (section 3.3) and Update Profile (section 3.4), each redirecting user to the corresponding page.
 
 ### 3.2. My Courses / Enrollment Record
 
-For students, this page shows all the courses they're current enrolled and its grades (default grade is IP for In Progress). In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). If no enrollment record can be found (e.g. for faculty), nothing will be shown in this section.
+For students, this page shows all the courses they're current enrolled and its grades (default grade is IP for In Progress). In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). If no enrollment record can be found (e.g. for faculty), no table will be shown in this section with a message indicating that.
 
-On the side of each enrollment record, a "Drop" button is provided and students can drop their enrollment(s) before the drop deadline. After the deadline for the course (stored in the database), such action will be blocked with an error message returned.
+On the side of each enrollment record, three action buttons are provided - Forum and Assignment (section 3.5), and Drop. The "Drop" button is provided for students to drop their enrollment(s) before the drop deadline. After the deadline for the course (stored in the database), such action will be blocked with an error message returned.
 
 ### 3.3. My Teachings
 
-For faculty members and TAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). The teaching team members have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
+For faculty members and TAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). There is another "Gradebook" button (section 3.6) redirecting teaching team members to grade each assignment for each enrolled student. The teaching team members also have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
+
+For students who are TAing any course, when they attempt to access "My Teaching" page, they will be redirected to "My Enrollments" page instead.
 
 ### 3.4. My Profile
 
-After logged in, user can also click to view their University Member Profile, including their legal name, university-affiliated email address, gender, age, and primary affiliation. If a user is faculty, their department, office, and title is also shown here. If a user is student, their phone, major, address (with city and state) is shown on this page. In addition, a form to change their profile picture is also shown. User can also change their password by clicking on the button. All passwords are hashed (by Django) and not stored in plain text in the database.
+After logged in, user can also click to view their University Member Profile, including their legal name, university-affiliated email address, gender, age, and primary affiliation. If a user is faculty, their department, office, and title is also shown here. If the user is student, their phone, major, address (with city and state) is shown on this page. In addition, a form to change their profile picture is also shown. User can also change their password by clicking on the button. All passwords are hashed (by Django) and not stored in plain text in the database.
 
 ### 3.5. Course Forum & Assignment
 
-Each course will have its own forum, where all participants can view and comment on existing posts, and create new posts. Course forum is restricted to course participants only, i.e. enrolled students (across all sections), teaching faulty and TAs. All other users will be blocked (403 Forbidden) if attempt to access a course forum. Privileged uses (authors, teaching team members) can also edit and delete certain posts.
+Each course will have its own forum, where all participants can view and comment on existing posts, and create new posts. Course forum is restricted to course participants only, i.e. enrolled students (across all sections), teaching faculty and TAs. All other users will be blocked (403 Forbidden) if attempt to access the course forum. Privileged users (authors, teaching team members) can also edit and delete any post of the forum.
 
-Similar to the forum, all course participants can access the Assignment page, where students can see a list of assignments affiliated with the course, and their grades for each assignment if they are graded. And for teaching team members, a grade book will be shown and they can update each student's grade for each assignment at this page.
+Similar to the forum, all course participants can access the Assignment page, where students can see a list of assignments affiliated with the course, and their grades for each assignment if they are graded. And for teaching team members, a grade book (section 3.6) button will be shown for them to update each student's grade for each assignment.
 
 ### 3.6. Gradebook
 
@@ -87,6 +89,8 @@ A list of generated csv files and their column descriptions is shown below:
 
 
 ### 4.2. Manage Data in NittanyPath
+
+The default admin page is at `/admin`, and users with superuser privilege will be able to access the page. It is recommended that when the system is deployed, the path changes to some non-typical address to increase security. For demonstration purposes, a sample admin account is created with username `admin` and password `plasmodiumfalciparum`. Admin page can directly manage all objects associated with models defined in both registrar and user app.
 
 ## 5. Copyright Statement
 
