@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+
+    <title>Assignment Gradebook - NittanyPath System</title>
+    
+{% endblock %}
+
+{% block bodycontent %}
+
+<section class="jumbotron text-center">
+  <div class="container-12">
+    <h1 class="jumbotron-heading" style="margin-top: 1em">Gradebook Records for <i>{{ course }}, {{ asmnt.desc }}</i>:</h1>
+    <p class="lead text-muted">Use this page to update assignment grades for enrolled students.</p>
+    {% if enrollments|length == 0 %}
+      <p class="lead">No students is enrolled.</p>
+    {% else %}
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Student Name</th>
+          <th scope="col">Access ID</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for enrollment in enrollments %}
+        <tr>
+          <td>{{ enrollment.student.legal_name }}</td>
+          <td>{{ enrollment.student.access_id }}</td>
+          <td>
+            <a class="button btn btn-info" href="{% url 'check-assignment-grade' asmnt.id enrollment.student %}">Update Grade</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

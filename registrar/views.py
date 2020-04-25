@@ -94,7 +94,8 @@ def FacultyDetailView(request, access_id):
 # block unrelated users
 @login_required
 def course_forum_list(request, course_id):
-  if testAuthorized(course_id=course_id, user=request.user) == 'none':
+  course = Course.objects.get(id=course_id)
+  if testAuthorized(course_id=course, user=request.user) == 'none':
     raise PermissionDenied
 
   # for authorized visitor
@@ -134,7 +135,8 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     return super().form_valid(form)
 
   def test_func(self):
-    if testAuthorized(course_id=self.kwargs['pk'], user=self.request.user) == 'none':
+    course = Course.objects.get(id=self.kwargs['pk'])
+    if testAuthorized(course_id=course, user=self.request.user) == 'none':
       return False
     return True
 
@@ -224,7 +226,8 @@ def my_teachings(request):
 @login_required
 def course_assignment_list(request, course_id):
   # block unrelated users
-  role = testAuthorized(course_id=course_id, user=request.user)
+  course = Course.objects.get(id=course_id)
+  role = testAuthorized(course_id=course, user=request.user)
   if role == 'none':
     raise PermissionDenied
 
@@ -280,7 +283,8 @@ class AssignmentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     return super().form_valid(form)
 
   def test_func(self):
-    if testAuthorized(course_id=self.kwargs['pk'], user=self.request.user) == 'faculty':
+    course = Course.objects.get(id=self.kwargs['pk'])
+    if testAuthorized(course_id=course, user=self.request.user) == 'faculty':
       return True
     return False
 
@@ -295,7 +299,7 @@ class AssignmentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
       return True
     return False
 
-# Only teaching faculty can delete assignments
+# Students can only drop their own enrollment before deadline
 class EnrollmentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
   model = EnrollRecord
   success_url = reverse_lazy('my-enrollment')
@@ -311,3 +315,63 @@ class EnrollmentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
       return True
     return False
 
+# Only Teaching Faculty can view Final Gradebook
+@login_required
+def final_gradebook(request, section_id):
+  section = Section.objects.get(id=section_id)
+  course = section.course
+  if testAuthorized(course_id=course, user=request.user) != 'faculty':
+    raise PermissionDenied
+  context = {
+    'enrollments': EnrollRecord.objects.filter(course_section=section),
+    'section': section,
+  }
+  return render(request, 'registrar/final_gradebook.html', context)
+
+# Only Teaching Faculty can update Final Grades
+class EnrollmentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+  model = EnrollRecord
+  fields = ['grade']
+
+  def test_func(self):
+    course = self.get_object().course_section.course
+    if testAuthorized(course_id=course, user=self.request.user) == 'faculty':
+      return True
+    return False
+
+# Only TA and Teaching Faculty can view Assignment Gradebook
+@login_required
+def assignment_gradebook(request, pk):
+  asmnt = Assignment.objects.get(id=pk)
+  course = asmnt.course_id
+  allsections = Section.objects.filter(course=course)
+  role = testAuthorized(course_id=course, user=request.user)
+  if role == 'student' or role == 'none':
+    raise PermissionDenied
+  context = {
+    'enrollments': EnrollRecord.objects.filter(course_section__in=allsections),
+    'course': course,
+    'asmnt': asmnt,
+  }
+  return render(request, 'registrar/assignment_gradebook.html', context)
+
+# Only TA and Teaching Faculty can update Assignment Grades
+@login_required
+def assignment_grade_detail(request, pk, access_id):
+  asmnt = Assignment.objects.get(id=pk)
+  role = testAuthorized(course_id=asmnt.course_id, user=request.user)
+  if role == 'student' or role == 'none':
+    raise PermissionDenied
+  grade_record = AssignmentGrade.objects.get_or_create(assignment=asmnt, student=request.user)
+  return redirect('update-assignment-grade', pk=grade_record[0].id)
+
+class AssignmentGradeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+  model = AssignmentGrade
+  fields = ['grade']
+
+  def test_func(self):
+    course = self.get_object().assignment.course_id
+    role = testAuthorized(course_id=course, user=self.request.user)
+    if role == 'faculty' or role == 'TA':
+      return True
+    return False

@@ -27,4 +27,11 @@ urlpatterns = [
   path('assignment_delete/<int:pk>', AssignmentDeleteView.as_view(), name='delete-assignment'), 
   path('assignment_update/<int:pk>', AssignmentUpdateView.as_view(), name='update-assignment'),
   path('create_assignment/<int:pk>', AssignmentCreateView.as_view(), name='create-assignment'),
+
+  # gradebook
+  path('final_gradebook/<int:section_id>', views.final_gradebook, name='final-gradebook'),
+  path('final_grade_detail/<int:pk>', EnrollmentUpdateView.as_view(), name='update-final-grade'),
+  path('assignment_gradebook/<int:pk>', views.assignment_gradebook, name='assignment-gradebook'),
+  path('assignment_grade_test/<int:pk>/<str:access_id>', views.assignment_grade_detail, name='check-assignment-grade'),
+  path('assignment_grade_update/<int:pk>', AssignmentGradeUpdateView.as_view(), name='update-assignment-grade'),
 ]

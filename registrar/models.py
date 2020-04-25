@@ -42,7 +42,10 @@ class Assignment(models.Model):
 class AssignmentGrade(models.Model):
   assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
   student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  grade = models.FloatField()
+  grade = models.FloatField(null=True)
+
+  def get_absolute_url(self):
+    return reverse('assignment-gradebook', kwargs={'pk': self.assignment.id})
 
 class EnrollRecord(models.Model):
   student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

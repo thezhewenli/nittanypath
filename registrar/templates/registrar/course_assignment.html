@@ -27,7 +27,7 @@
         {% if role == 'student' %}
           <p class="card-text"><a class="button btn btn-outline-info" href="{% url 'view-assignment-grade' assignment.id %}">View Score</a></p> 
         {% elif role == 'faculty' %}
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Gradebook</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'assignment-gradebook' assignment.id %}">Gradebook</a>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update-assignment' assignment.id %}">Update</a>
           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete-assignment' assignment.id %}">Delete</a>
         {% endif %}
