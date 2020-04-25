@@ -33,7 +33,7 @@
         <tbody>
           {% for course in courses %}
           <tr>
-            <th scope="row" class="text-right"><a href="{% url 'view-course-detail' course.course_id %}">{{ course.subject }} {{ course.course_number }}</a></th>
+            <th scope="row" class="text-right"><a href="{% url 'view-course-detail' course.id %}">{{ course.subject }} {{ course.course_number }}</a></th>
             <td class="text-left">{{ course.course_name }}</td>
             <td>{{ course.credit }}</td>
           </tr> 

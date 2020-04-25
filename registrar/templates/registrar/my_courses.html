@@ -29,13 +29,13 @@
       <tbody>
         {% for enrollment in enrollments %}
         <tr>
-          <td><a href="{% url 'view-course-detail' enrollment.course_section.course.course_id %}">{{ enrollment.course_section.course }}</a></td>
+          <td><a href="{% url 'view-course-detail' enrollment.course_section.course.id %}">{{ enrollment.course_section.course }}</a></td>
           <td>{{ enrollment.course_section.section_num }}</td>
           <td><a href="{% url 'view-faculty-detail' enrollment.course_section.teaching_team_id.faculty %}">{{ enrollment.course_section.teaching_team_id.faculty.legal_name }}</a></td>
           <td>{{ enrollment.get_grade_display }}</td>
           <td>
-            <a class="button btn btn-info" href="{% url 'view-course-forum' enrollment.course_section.course.course_id %}">Forum</a>
-            <a class="button btn btn-secondary" href="{% url 'view-course-assignment' enrollment.course_section.course.course_id %}">Assignment</a> 
+            <a class="button btn btn-info" href="{% url 'view-course-forum' enrollment.course_section.course.id %}">Forum</a>
+            <a class="button btn btn-secondary" href="{% url 'view-course-assignment' enrollment.course_section.course.id %}">Assignment</a> 
             <a class="button btn btn-danger" href="#">Drop</a>
           </td>
         </tr>

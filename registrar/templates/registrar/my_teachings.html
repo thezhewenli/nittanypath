@@ -27,12 +27,11 @@
       <tbody>
         {% for teaching in teachings %}
         <tr>
-          <td><a href="{% url 'view-course-detail' teaching.course.course_id %}">{{ teaching.course }}</a></td>
+          <td><a href="{% url 'view-course-detail' teaching.course.id %}">{{ teaching.course }}</a></td>
           <td>{{ teaching.section_num }}</td>
           <td>
-            <a class="button btn btn-info" href="{% url 'view-course-forum' teaching.course.course_id %}">Forum</a>
-            <a class="button btn btn-secondary" href="{% url 'view-course-assignment' teaching.course.course_id %}">Assignment</a> 
-            <a class="button btn btn-info" href="#">Gradebook</a>
+            <a class="button btn btn-info" href="{% url 'view-course-forum' teaching.course.id %}">Forum</a>
+            <a class="button btn btn-secondary" href="{% url 'view-course-assignment' teaching.course.id %}">Assignment</a>
           </td>
         </tr>
         {% endfor %}

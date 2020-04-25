@@ -13,12 +13,13 @@ class FacultyTeachTeam(models.Model):
   faculty = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
 
 class Course(models.Model):
-  course_id = models.SmallIntegerField(primary_key=True, unique=True)
   subject = models.ForeignKey(Department, on_delete=models.SET_DEFAULT, default='PMAJ')
   course_number = models.CharField(max_length=4)
   course_name = models.TextField()
   credit = models.PositiveSmallIntegerField()
-  drop_ddl = models.CharField(max_length=8)
+  drop_ddl = models.DateTimeField()
+  class Meta:
+    unique_together = ('subject', 'course_number')
   def __str__(self):
     return '%s %s' % (self.subject, self.course_number)
 
@@ -31,10 +32,12 @@ class Section(models.Model):
     return '%s, Section %s' % (self.course, self.section_num)
 
 class Assignment(models.Model):
-  assignment = models.SmallIntegerField(primary_key=True)
   course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
   desc = models.TextField(blank=True, verbose_name='Assignment Description')
   detail = models.TextField(blank=True, verbose_name='Assignment Details')
+
+  def get_absolute_url(self):
+    return reverse('view-course-assignment', kwargs={'course_id': self.course_id.id})
 
 class AssignmentGrade(models.Model):
   assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)

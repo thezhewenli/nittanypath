@@ -26,7 +26,7 @@ class UniversityMember(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
 
     access_id = models.CharField(
-        max_length=6, verbose_name="Access ID", unique=True)
+        max_length=6, verbose_name="Access ID", primary_key=True)
     legal_name = models.CharField(max_length=100)
     age = models.PositiveSmallIntegerField()
     legal_gender = models.CharField(max_length=1, choices=LEGAL_GENDERS)

@@ -12,24 +12,24 @@
     <h1 class="heading" style="margin-top: 1em">Course Assignment Page for <i>{{ course.subject }} {{ course.course_number }}</i>:</h1>
     <p class="text-muted">This page shows the course's all assignment entries.</p>
     {% if role == 'faculty' %}
-      <a class="btn btn-outline-info" role="button" href="{% url 'create-assignment' course.course_id %}">Create an Assignment</a>
+      <a class="btn btn-outline-info" role="button" href="{% url 'create-assignment' course.id %}">Create an Assignment</a>
     {% endif %}
   </div>
   <div class="container" style="margin-top: 1em">
   {% for assignment in assignments %}
     <div class="card">
       <div class="card-header">
-        <small class="text-muted">Assignment #{{ assignment.assignment }}</small>
+        <small class="text-muted">Assignment #{{ assignment.id }}</small>
       </div>
       <div class="card-body">
         <h2 class="card-title">{{ assignment.desc }}</h2>
         <p class="card-text">{{ assignment.detail }}</p>
         {% if role == 'student' %}
-          <p class="card-text"><a class="button btn btn-outline-info" href="{% url 'view-assignment-grade' assignment.assignment %}">View Score</a></p> 
+          <p class="card-text"><a class="button btn btn-outline-info" href="{% url 'view-assignment-grade' assignment.id %}">View Score</a></p> 
         {% elif role == 'faculty' %}
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Gradebook</a>
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update-assignment' assignment.assignment %}">Update</a>
-          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete-assignment' assignment.assignment %}">Delete</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update-assignment' assignment.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete-assignment' assignment.id %}">Delete</a>
         {% endif %}
       </div>
     </div>

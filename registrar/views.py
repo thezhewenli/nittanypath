@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 # identify current user's role in a given course
 def testAuthorized(course_id, user):
   # select all affiliated sections
-  sections = Section.objects.filter(course_id=course_id)
+  sections = Section.objects.filter(course=course_id)
   # identify user's role with the course
   facultycount = 0
   TAcount = 0
@@ -96,7 +96,7 @@ def course_forum_list(request, course_id):
     raise PermissionDenied
 
   # for authorized visitor
-  course = Course.objects.get(course_id=course_id)
+  course = Course.objects.get(id=course_id)
   posts = Post.objects.filter(course_id=course_id)
   context = {
     'posts': posts,
@@ -126,7 +126,7 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
   fields = ['post_title', 'post_content']
 
   def form_valid(self, form):
-    course = Course.objects.get(course_id=self.kwargs['pk'])
+    course = Course.objects.get(id=self.kwargs['pk'])
     form.instance.course_id = course
     form.instance.post_author = self.request.user
     return super().form_valid(form)
@@ -225,7 +225,7 @@ def course_assignment_list(request, course_id):
     raise PermissionDenied
 
   # for authorized visitor
-  course = Course.objects.get(course_id=course_id)
+  course = Course.objects.get(id=course_id)
   assignments = Assignment.objects.filter(course_id=course)
   context = {
     'assignments': assignments,
@@ -271,7 +271,7 @@ class AssignmentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
   fields = ['desc', 'detail']
 
   def form_valid(self, form):
-    course = Course.objects.get(course_id=self.kwargs['pk'])
+    course = Course.objects.get(id=self.kwargs['pk'])
     form.instance.course_id = course
     return super().form_valid(form)
 
@@ -286,7 +286,8 @@ class AssignmentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   fields = ['desc', 'detail']
 
   def test_func(self):
-    if testAuthorized(course_id=self.kwargs['pk'], user=self.request.user) == 'faculty':
+    assignment = Assignment.objects.get(id=self.kwargs['pk'])
+    if testAuthorized(course_id=assignment.course_id, user=self.request.user) == 'faculty':
       return True
     return False
 
