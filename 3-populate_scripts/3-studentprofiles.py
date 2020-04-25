@@ -4,7 +4,7 @@ from users.models import StudentProfile, TAProfile, ZipcodeInfo
 from registrar.models import Department
 
 # Import Student's data as University Member and Student Profiles
-with open('scripts/StudentProfiles.csv') as csv_file:
+with open('../2-data_parser/2-StudentProfiles.csv') as csv_file:
   csv_reader = csv.reader(csv_file, delimiter=',')
   for row in csv_reader:
 

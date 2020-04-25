@@ -1,12 +1,16 @@
 import csv
 from django.contrib.auth import get_user_model
-from registrar.models import Post, Reply, Course
+from registrar.models import Post, Reply, Course, Department
 
-with open('scripts/PostsReplys.csv') as csv_file:
+with open('../2-data_parser/9-PostsReplys.csv') as csv_file:
   csv_reader = csv.reader(csv_file, delimiter=',')
   for row in csv_reader:
+    # ignore if no post for one course
+    if row[0] == '':
+      continue
     # Create corresponding post and reply entry
-    course = Course.objects.get(course_id=float(row[4]))
+    dept = Department.objects.get(department_id = row[4])
+    course = Course.objects.get(subject=dept, course_number=row[5])
     post_author = get_user_model().objects.get(access_id=row[1])
     post = Post.objects.create(course_id=course,
                               post_author=post_author,
