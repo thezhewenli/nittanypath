@@ -90,7 +90,7 @@ def main():
   coursesdf = allcourses.iloc[:,[1,2,3,6,7]].copy().drop_duplicates()
   dropddldf = df3.iloc[:,[0,1]].copy().drop_duplicates()
   courses_and_ddl_df = pd.merge(left=coursesdf, right=dropddldf, how='left', left_on='course', right_on='Courses')
-  courses_and_ddl_df.to_csv('3-Courses.csv', index=False, header=False)
+  courses_and_ddl_df.iloc[:,[1,2,3,4,6]].to_csv('3-Courses.csv', index=False, header=False)
   # --- 4: Get Section Info and Save to '4-Sections.csv' ---
   sectionsdf = allcourses.iloc[:,[4,5,6,7]].copy()
   sectionsdf.drop_duplicates().to_csv('4-Sections.csv', index=False, header=False)
@@ -124,7 +124,7 @@ def main():
   post_reply_df['course_num'] = post_reply_df['Courses'].str[-3:]
   post_reply_df.loc[post_reply_df['subject']=='CMPSC4','course_num'] = '431W'
   post_reply_df.loc[post_reply_df['subject']=='CMPSC4','subject'] = 'CMPSC'
-  post_reply_df.iloc[:,2:8].to_csv('9-PostsReplys.csv', index=False, header=False)
+  post_reply_df.iloc[:,1:9].to_csv('9-PostsReplys.csv', index=False, header=False)
   print(bcolors.OKGREEN + "9/10 Done. Post and Reply File Created.")
   
   # --- Parse Assignments (HW+Exam) and Grades Data ---

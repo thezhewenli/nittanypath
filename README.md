@@ -76,17 +76,26 @@ This is implemented with help from Django's default logout function. When logged
 
 ### 4.1. Migrate and Populate Data
 
-A data parser is designed and available at `/scripts/data_parse.py`. This program is designed very specifically to parse the three csv files provided by CMPSC 431W teaching team, i.e. the dataset. The program will create several new csv files in the same direcory.
+A data parser is designed and available at `/2-data_parser/data_parser.py`. This program is designed very specifically to parse the three csv files provided by CMPSC 431W teaching team, i.e. the dataset (default file-readin-location at `/1-dataset/`). The program will create 10 new csv files in the same directory. A list of these generated-files and their column descriptions is shown below:
 
-After running the data parser and having new csv files generated, there are 11 scripts under `/commands` directory, and they will automatically populate the database using data from the pre-parsed csv files. There is a preferred order to run these scripts and they are named by numbers. To use the script, simply type the following command to your terminal:
+| Generated File Name         | Target Population Script | Column Descriptions                                          |
+| --------------------------- | ------------------------ | ------------------------------------------------------------ |
+| 1-Zipcodes.csv              |                          | Zipcode, City, State                                         |
+| 2-StudentProfiles.csv       |                          | Name, Access ID, Age, Zipcode, Phone, Gender, Password, Address, Major, Teaching Team ID |
+| 3-Courses.csv               |                          | Course Full Name, Credit, Subject / Offered Department, Course Number, Drop Deadline |
+| 4-Sections.csv              |                          | Section Number, Seat Capacity, Subject, Course Number        |
+| 5-Enrollments.csv           |                          | Student Access ID, Section, Subject, Course Number           |
+| 6-Depts.csv                 |                          | Department Abbreviation, Department Name                     |
+| 7-FacultyProfiles.csv       |                          | Name, Access ID, Password, Age, Gender, Affiliated Department, Office Location, Title |
+| 8-FacultyTeachTeam.csv      |                          | Faculty Access ID, Teaching Team Number                      |
+| 9-PostsReplys.csv           |                          | Post Content, Post Author ID, Reply Content, Reply Author ID, Subject, Course Number |
+| 10-AssignmentsAndGrades.csv |                          | Student Access ID, Assignment Type, Assignment Detail, Score, Subject, Course Number |
+
+After running the data parser and having new csv files generated, there are 11 scripts under `/3-populate_scripts` directory, and they will automatically populate the database using data from the pre-parsed csv files. There is a preferred order to run these scripts and they are named by numbers. To use the script, simply type the following command to your terminal:
 
 ```bash
 python manage.py shell < replace_with_script_name.py
 ```
-
-A list of generated csv files and their column descriptions is shown below:
-
-
 
 ### 4.2. Manage Data in NittanyPath
 
