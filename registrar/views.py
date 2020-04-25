@@ -10,6 +10,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from datetime import datetime
+import pytz
 
 # identify current user's role in a given course
 def testAuthorized(course_id, user):
@@ -190,8 +192,10 @@ class ReplyCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 @login_required
 def my_enrollment(request):
+  now = datetime.now()
   context = {
     'enrollments': EnrollRecord.objects.filter(student_id=request.user),
+    'now': now,
   }
   return render(request, 'registrar/my_courses.html', context)
 
@@ -288,6 +292,22 @@ class AssignmentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   def test_func(self):
     assignment = Assignment.objects.get(id=self.kwargs['pk'])
     if testAuthorized(course_id=assignment.course_id, user=self.request.user) == 'faculty':
+      return True
+    return False
+
+# Only teaching faculty can delete assignments
+class EnrollmentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+  model = EnrollRecord
+  success_url = reverse_lazy('my-enrollment')
+
+  def test_func(self):
+    enrollment = self.get_object()
+    utc = pytz.utc
+    # only self can drop course
+    if enrollment.student != self.request.user:
+      return False
+    # only allow drop before ddl
+    elif datetime.now(tz=utc) < enrollment.course_section.course.drop_ddl.astimezone(utc):
       return True
     return False
 

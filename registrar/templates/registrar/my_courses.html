@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block pagetitle %}
 
@@ -36,7 +37,9 @@
           <td>
             <a class="button btn btn-info" href="{% url 'view-course-forum' enrollment.course_section.course.id %}">Forum</a>
             <a class="button btn btn-secondary" href="{% url 'view-course-assignment' enrollment.course_section.course.id %}">Assignment</a> 
-            <a class="button btn btn-danger" href="#">Drop</a>
+            {% if now|utc < enrollment.course_section.course.drop_ddl|utc %}
+              <a class="button btn btn-danger" href="{% url 'delete-enroll-record' enrollment.id %}">Drop</a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}

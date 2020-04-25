@@ -19,6 +19,7 @@ urlpatterns = [
   path('post_detail/<int:pk>', PostDetailView.as_view(), name='view-forum-post'), 
   path('post_detail/<int:pk>/update', PostUpdateView.as_view(), name='update-forum-post'), 
   path('post_detail/<int:pk>/delete', PostDeleteView.as_view(), name='delete-forum-post'), 
+  path('drop_course/<int:pk>', EnrollmentDeleteView.as_view(), name='delete-enroll-record'), 
 
   # course assignment
   path('course_assignment/<int:course_id>', views.course_assignment_list, name='view-course-assignment'), 
