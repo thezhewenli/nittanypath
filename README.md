@@ -50,7 +50,7 @@ On the side of each enrollment record, three action buttons are provided - Forum
 
 ### 3.3. My Teachings
 
-For faculty members and TAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). There is another "Gradebook" button (section 3.6) redirecting teaching team members to grade each assignment for each enrolled student. The teaching team members also have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
+For faculty members and TAs, this page shows all the courses they're currently teaching. In this list, each course will have two buttons to direct students to their forum and assignment pages (section 3.5). When clicking into a specific assignment, there is another "Gradebook" button (section 3.6) redirecting teaching team members to grade each assignment for each enrolled student. The teaching team members also have privileges to create, edit and delete posts in forum, and update grades for assignments. Only faculty teachers can create an assignment.
 
 For students who are TAing any course, when they attempt to access "My Teaching" page, they will be redirected to "My Enrollments" page instead.
 
