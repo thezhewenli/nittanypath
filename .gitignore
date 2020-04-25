@@ -1,3 +1,13 @@
 # Ignore parser generated files
 2-data_parser/*
 !2-data_parser/data_parser.py
+
+# Ignore Database migtation files
+db.sqlite3
+nittanypath/__pycache__/
+registrar/__pycache__/
+registrar/migrations/*
+!registrar/migrations/__init__.py
+users/__pycache__/
+users/migrations/*
+!users/migrations/__init__.py
