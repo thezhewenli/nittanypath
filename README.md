@@ -113,9 +113,11 @@ The default admin page is at `/admin`, and users with superuser privilege will b
 
 You can create a superuser account using command `python manage.py createsuperuser`. Admin page can directly manage all objects associated with models defined in both registrar and user app.
 
-## 5. Copyright Statement
+## 5. Copyright Statement & Presentation Materials
 
 All rights reserved. This project is open-sourced under MIT License. Please include a copy of the license to reuse the codes.
+
+A presentation slide is available [here](/Presentation.pdf), with a video [here](https://youtu.be/fuq6nFIOxEA).
 
 ## 6. Citations
 
