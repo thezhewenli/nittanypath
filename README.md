@@ -7,7 +7,7 @@
 - [2. Anonymous User](#2-Anonymous-User)
 - [3. Logged-in User](#3-Logged-in-User)
 - [4. Admin User](#4-Admin-User)
-- [5. Copyright Statement](#5-Copyright-Statement)
+- [5. Copyright Statement & Presentation Materials](#5-Copyright-Statement-&-Presentation-Materials)
 - [6. Citations](#6-Citations)
 
 ## 0. Introduction
