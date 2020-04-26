@@ -64,6 +64,8 @@ class EnrollRecord(models.Model):
       ('IP', 'In Progress'),
     )
   grade = models.CharField(max_length=2, choices=GRADES, default='IP')
+  def get_absolute_url(self):
+    return reverse('final-gradebook', kwargs={'section_id': self.course_section.id})
 
 class Post(models.Model):
   course_id = models.ForeignKey(Course, on_delete=models.CASCADE)

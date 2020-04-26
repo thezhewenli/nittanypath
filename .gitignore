@@ -1,3 +1,6 @@
+# Ignore VS code generated file
+.vscode/
+
 # Ignore parser generated files
 2-data_parser/*
 !2-data_parser/data_parser.py
