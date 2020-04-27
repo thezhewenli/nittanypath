@@ -362,7 +362,8 @@ def assignment_grade_detail(request, pk, access_id):
   role = testAuthorized(course_id=asmnt.course_id, user=request.user)
   if role == 'student' or role == 'none':
     raise PermissionDenied
-  grade_record = AssignmentGrade.objects.get_or_create(assignment=asmnt, student=access_id)
+  student = get_user_model().objects.get(access_id=access_id)
+  grade_record = AssignmentGrade.objects.get_or_create(assignment=asmnt, student=student)
   return redirect('update-assignment-grade', pk=grade_record[0].id)
 
 class AssignmentGradeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
